@@ -93,7 +93,7 @@ def process_record(data: LoanInput):
       (
         f"$  {total_interest:,.2f}"
         if insurance_monthly == "NA"
-        else f"$  {total_interest:,.2f} AND $  {insurance_monthly:,.2f}"
+        else f"$  {total_interest:,.2f} and $  {insurance_monthly:,.2f}"
      )
         
     }
