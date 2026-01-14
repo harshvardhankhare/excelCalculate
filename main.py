@@ -92,6 +92,11 @@ def process_record(data: LoanInput):
     }
 
 # ---------------- API ----------------
+@app.get("/ping")
+def ping():
+    return {"status": "alive"}
+
+
 @app.post("/generate-excel")
 def generate_excel(records: List[LoanInput]):
     rows = [process_record(r) for r in records]
