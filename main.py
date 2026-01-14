@@ -14,8 +14,8 @@ app = FastAPI(title="Loan Excel Generator API")
 # ---------------- CORS ----------------
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # restrict in real production
-    allow_credentials=True,
+    allow_origins=["https://excelcalculator.netlify.app"],  # restrict in real production
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -81,19 +81,21 @@ def process_record(data: LoanInput):
         "Customer Reference Number": data.customer_reference,
         "Customer Name": data.customer_name,
         "City , State": data.city_state,
-        "Purchase Value & Down Payment":
+        "Purchase Value AND Down Payment":
             f"$  {purchase_value:,.2f} and {data.down_payment}%",
         "Loan Period AND Annuity Interest":
-            f"{data.loan_period} Years and {data.annuity_interest}%",
+            f"{data.loan_period} YEARS and {data.annuity_interest}%",
         "Guarantor Name": data.guarantor_name,
         "Guarantor Reference Number": data.guarantor_reference,
         "Loan Amount AND Principal":
-            f"$  {loan_amount:,.2f} , {principal:,.2f}",
-        "Total Interest for Loan":
-            f"$  {total_interest:,.2f}",
-        "Period & Property Insurance per Month":
-            "NA" if insurance_monthly == "NA"
-            else f"$  {insurance_monthly:,.2f}"
+            f"$  {loan_amount:,.2f} and $ {principal:,.2f}",
+        "Total Interest for Loan period AND Property Insurance per Month":
+      (
+        f"$  {total_interest:,.2f}"
+        if insurance_monthly == "NA"
+        else f"$  {total_interest:,.2f} AND $  {insurance_monthly:,.2f}"
+     )
+        
     }
 
 # ---------------- HEALTH CHECK ----------------
